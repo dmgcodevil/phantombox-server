@@ -1,0 +1,8 @@
+rootProject.name='phantombox-server'
+
+include 'phantombox-server-api'
+include 'phantombox-server-rest-api'
+include 'phantombox-server-rest-web'
+include 'phantombox-server-service'
+include 'phantombox-server-storage'
+include 'phantombox-server-web'

@@ -1,0 +1,5 @@
+
+dependencies {
+	compile('com.git.phantombox:phantombox-domain-api:1.0.0')
+}
+
