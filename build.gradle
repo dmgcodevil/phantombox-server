@@ -1,11 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 
+sourceCompatibility = 1.7
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'checkstyle'
-    apply plugin: 'pmd'
 
     group = 'com.git.phantombox'
     version = "${versionMajor}.${versionMinor}.${versionBuild}"
@@ -19,7 +20,7 @@ subprojects {
         ivy {
             ivyPattern "$projectDir/repo/[organisation]/[module]-ivy-[revision].xml"
             artifactPattern "$projectDir/repo/[organisation]/[module]-[revision](-[classifier]).[ext]"
-	        url file(System.getProperty('user.home') + '/.ivylocal')
+            url file(System.getProperty('user.home') + '/.ivylocal')
         }
     }
 
@@ -27,6 +28,33 @@ subprojects {
         repositories {
             ivy { url file(System.getProperty('user.home') + '/.ivylocal') }
         }
+    }
+
+/* ---------------- integration tests setup ---------------- */
+    configurations {
+        integTestCompile { extendsFrom compile }
+        integTestRuntime { extendsFrom integTestCompile, runtime }
+    }
+
+    sourceSets {
+        integTest {
+            compileClasspath = sourceSets.main.output + configurations.integTestCompile
+            runtimeClasspath = output + sourceSets.main.output + configurations.integTestRuntime
+        }
+    }
+
+    task intTest(type: Test) {
+        testClassesDir = sourceSets.integTest.output.classesDir
+        classpath = sourceSets.integTest.runtimeClasspath
+    }
+
+
+    task intTestJar(type: Jar) {
+        from sourceSets.integTest.output
+    }
+
+    task unitTestJar(type: Jar) {
+        from sourceSets.test.output
     }
 
     /* ---------------- checkstyle setup ---------------- */
@@ -53,7 +81,18 @@ subprojects {
                 destination "$buildDir/reports/checkstyle/test.xml"
             }
         }
-        configFile = file("$rootProject.projectDir/config/checkstyle/checkstyle-test.xml")
+        configFile = file("$rootProject.projectDir/config/checkstyle/checkstyle.xml")
+    }
+
+    checkstyleIntegTest {
+        ignoreFailures = false
+        reports {
+            include('**/*.java')
+            xml {
+                destination "$buildDir/reports/checkstyle/integTest.xml"
+            }
+        }
+        configFile = file("$rootProject.projectDir/config/checkstyle/checkstyle.xml")
     }
 
 
@@ -66,11 +105,11 @@ subprojects {
         }
     }
 
-    task quality(dependsOn: ['checkstyleMain', 'checkstyleTest'])
+    task quality(dependsOn: ['checkstyleMain', 'checkstyleTest', 'checkstyleIntegTest'])
 
     gradle.taskGraph.afterTask {Task task, TaskState state ->
         if (state.failure) {
-            if (task.name in ['checkstyleMain', 'checkstyleTest']) {
+            if (task.name in ['checkstyleMain', 'checkstyleTest', 'checkstyleIntegTest']) {
                 checkstyleReport {
                     def matcher = task.name =~ /^checkstyle(.*)$/
                     if (matcher.matches()) {

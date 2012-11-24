@@ -326,7 +326,7 @@
 
         <module name="LineLength">
             <property name="severity" value="error"/>
-            <property name="max" value="100"/>
+            <property name="max" value="120"/>
             <property name="ignorePattern" value="^import"/>
         </module>
 
@@ -336,9 +336,9 @@
             <property name="countEmpty" value="false"/>
         </module>
 
-        <module name="AnonInnerLength">
+        <!--<module name="AnonInnerLength">
             <property name="severity" value="warning"/>
-        </module>
+        </module> -->
 
         <module name="MethodParamPad">
             <property name="severity" value="error"/>
