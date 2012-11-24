@@ -1,0 +1,12 @@
+dependencies {
+
+    /* ---------------- phantombox dependencies ---------------- */
+    compile project(':phantombox-server-api')
+    compile('com.git.phantombox:phantombox-domain-api:1.0.0')
+    compile('com.git.phantombox:phantombox-domain-impl:1.0.0')
+    compile('com.git.phantombox:phantombox-domain-util:1.0.0')
+    compile('com.git.phantombox:phantombox-server-storage:1.0.0')
+
+    /* ---------------- spring dependencies ---------------- */
+}
+            

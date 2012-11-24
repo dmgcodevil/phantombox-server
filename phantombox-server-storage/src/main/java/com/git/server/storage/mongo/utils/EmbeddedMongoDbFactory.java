@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import javax.annotation.PostConstruct;
@@ -25,7 +24,6 @@ import de.flapdoodle.embed.process.runtime.Network;
  * Date: 11/24/12
  * Time: 7:46 AM
  */
-@Component
 public class EmbeddedMongoDbFactory implements MongoDbFactory {
 
     private String databaseName;

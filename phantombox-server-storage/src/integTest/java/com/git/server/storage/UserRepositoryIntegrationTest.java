@@ -3,6 +3,7 @@ package com.git.server.storage;
 import com.git.domain.api.IConnection;
 import com.git.domain.api.IContact;
 import com.git.domain.api.IUser;
+import com.git.domain.util.helper.UserDomainBuilder;
 import com.git.server.api.repository.IConnectionRepository;
 import com.git.server.api.repository.IContactRepository;
 import com.git.server.api.repository.IUserRepository;
@@ -47,8 +48,8 @@ public class UserRepositoryIntegrationTest {
      */
     @Before
     public void setUp() {
-        user = DomainBuilder.buildUser();
-        IContact contact = DomainBuilder.buildContact();
+        user = UserDomainBuilder.buildUser();
+        IContact contact = UserDomainBuilder.buildContact();
         contactRepository.insert(contact);
         user.getContacts().add(contact);
         userRepository.insert(user);
@@ -78,7 +79,7 @@ public class UserRepositoryIntegrationTest {
      */
     @Test
     public void testUpdate() {
-        IUser newUser = DomainBuilder.buildUser();
+        IUser newUser = UserDomainBuilder.buildUser();
         userRepository.insert(newUser);
         IUser repUser = userRepository.findById(newUser.getId());
         repUser.setName("new name");
@@ -93,7 +94,7 @@ public class UserRepositoryIntegrationTest {
      */
     @Test
     public void testDelete() {
-        IUser newUser = DomainBuilder.buildUser();
+        IUser newUser = UserDomainBuilder.buildUser();
         userRepository.insert(newUser);
         IUser repUser = userRepository.findById(newUser.getId());
         Assert.assertNotNull(repUser);

@@ -13,7 +13,7 @@
 
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="classpath:/config/mongodb/db.properties"/>
+          p:location="classpath:com/git/server/storage/config/mongodb/db.properties"/>
 
     <mongo:mongo host="${db.host}" port="${db.port}"/>
 
