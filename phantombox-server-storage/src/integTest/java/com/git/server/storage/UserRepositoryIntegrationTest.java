@@ -104,6 +104,15 @@ public class UserRepositoryIntegrationTest {
         Assert.assertNull(repUser);
     }
 
+    /**
+     * Test find by email.
+     */
+    @Test
+    public void testFindByEmail() {
+        IUser repUser = userRepository.findByEmail(user.getContact().getEmail());
+        Assert.assertNotNull(repUser);
+        Assert.assertEquals(user, repUser);
+    }
 
     /**
      * After each.

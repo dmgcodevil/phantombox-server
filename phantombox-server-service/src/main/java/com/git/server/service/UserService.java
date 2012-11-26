@@ -147,12 +147,11 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
     @Override
     public boolean addContactByEmail(IUser user, String email) {
         boolean added = false;
-        IUser newUser = userRepository.findByEmail(email);
-        if (user != null && newUser != null) {
-            user.getContacts().add(newUser.getContact());
+        IContact contact = contactService.getByEmail(email);
+        if (user != null && contact != null) {
+            user.getContacts().add(contact);
             update(user);
             added = true;
-
         }
         return added;
     }

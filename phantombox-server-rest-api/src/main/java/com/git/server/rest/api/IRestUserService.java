@@ -1,9 +1,6 @@
 package com.git.server.rest.api;
 
-import com.git.domain.api.IContact;
 import com.git.domain.api.IUser;
-
-import java.util.Set;
 
 /**
  * Rest user service.
@@ -42,9 +39,9 @@ public interface IRestUserService {
      * @param name     name
      * @param password password
      * @param userName name  of user which need to add
-     * @return set of {@link IContact} objects
+     * @return {@link IUser}
      */
-    Set<IContact> addContactByUserName(String name, String password, String userName);
+    IUser addContactByUserName(String name, String password, String userName);
 
 
     /**
@@ -53,9 +50,9 @@ public interface IRestUserService {
      * @param name     name
      * @param password password
      * @param email    Email
-     * @return set of {@link IContact} objects
+     * @return {@link IUser}
      */
-    Set<IContact> addContactByContactEmail(String name, String password, String email);
+    IUser addContactByContactEmail(String name, String password, String email);
 
     /**
      * Remove contact by id.

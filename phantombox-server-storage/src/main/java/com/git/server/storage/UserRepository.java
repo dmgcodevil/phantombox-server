@@ -49,8 +49,9 @@ public class UserRepository extends AbstractBaseRepository<String, IUser>
      * {@inheritDoc}
      */
     @Override
+    @Deprecated
     public IUser findByEmail(String email) {
-        return getMongoTemplate().findOne(query(where("contact.email")
+        return getMongoTemplate().findOne(query(where("user.contact.email")
             .is(email)), getDomainClass());
     }
 

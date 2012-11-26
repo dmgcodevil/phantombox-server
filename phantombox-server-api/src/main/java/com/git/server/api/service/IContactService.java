@@ -14,6 +14,14 @@ import com.git.domain.api.IContact;
 public interface IContactService extends IBaseService<String, IContact> {
 
     /**
+     * Gets by email.
+     *
+     * @param email email
+     * @return {@link IContact}
+     */
+    IContact getByEmail(String email);
+
+    /**
      * Exists.
      *
      * @param contact {@link IContact}

@@ -69,6 +69,18 @@ public class ContactService extends AbstractBaseService<String, IContact> implem
      * {@inheritDoc}
      */
     @Override
+    public IContact getByEmail(String email) {
+        IContact contact = null;
+        if (email != null) {
+            contact = contactRepository.findByEmail(email);
+        }
+        return contact;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean exists(IContact contact) {
         return contactRepository.exists(contact);
     }

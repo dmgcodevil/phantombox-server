@@ -44,4 +44,64 @@ public class UserController {
         IUser user = restUserService.login(name, password, ipAddress);
         return new ModelAndView(jsonView, USER_VIEW, user);
     }
+
+    /**
+     * Logout.
+     *
+     * @param name     user name
+     * @param password user password
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/logout")
+    public void logout(@RequestParam String name, @RequestParam String password) {
+        restUserService.logout(name, password);
+    }
+
+
+    /**
+     * Add contact by user name.
+     *
+     * @param name     name
+     * @param password password
+     * @param userName name  of user which need to add
+     * @return {@link ModelAndView} user in json format
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/addContactByName")
+    public ModelAndView addContactByUserName(@RequestParam String name,
+                                             @RequestParam String password,
+                                             @RequestParam String userName) {
+        IUser user = restUserService.addContactByUserName(name, password, userName);
+        return new ModelAndView(jsonView, USER_VIEW, user);
+    }
+
+
+    /**
+     * Add contact by user name.
+     *
+     * @param name     name
+     * @param password password
+     * @param email    Email
+     * @return {@link ModelAndView} user in json format
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/addContactByEmail")
+    public ModelAndView addContactByContactEmail(@RequestParam String name,
+                                                 @RequestParam String password,
+                                                 @RequestParam String email) {
+        IUser user = restUserService.addContactByContactEmail(name, password, email);
+        return new ModelAndView(jsonView, USER_VIEW, user);
+    }
+
+    /**
+     * Remove contact by id.
+     *
+     * @param name      name
+     * @param password  password
+     * @param contactId contact id
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/removeContact")
+    public void removeContactById(@RequestParam String name,
+                                  @RequestParam String password,
+                                  @RequestParam String contactId) {
+        restUserService.removeContactById(name, password, contactId);
+    }
+
 }

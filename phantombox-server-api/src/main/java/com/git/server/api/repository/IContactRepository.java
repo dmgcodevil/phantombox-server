@@ -22,6 +22,14 @@ public interface IContactRepository extends IBaseRepository<String, IContact> {
     void insert(Set<IContact> contacts);
 
     /**
+     * Find by email.
+     *
+     * @param email email
+     * @return {@link IContact}
+     */
+    IContact findByEmail(String email);
+
+    /**
      * Checks existence contact in storage.
      *
      * @param contact {@link IContact}

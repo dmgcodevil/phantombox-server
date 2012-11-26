@@ -1,15 +1,10 @@
 package com.git.server.rest.web.service;
 
-import com.git.domain.api.IContact;
 import com.git.domain.api.IUser;
 import com.git.server.api.service.IUserService;
 import com.git.server.rest.api.IRestUserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.Set;
 
 /**
  * {@link IRestUserService} interface implementation.
@@ -45,28 +40,24 @@ public class RestUserService implements IRestUserService {
      * {@inheritDoc}
      */
     @Override
-    public Set<IContact> addContactByUserName(String name, String password, String userName) {
-        Set<IContact> contacts = Collections.emptySet();
+    public IUser addContactByUserName(String name, String password, String userName) {
         IUser user = userService.getByNameAndPassword(name, password);
         if (user != null) {
             userService.addContactByUserName(user, userName);
-            contacts = user.getContacts();
         }
-        return contacts;
+        return user;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Set<IContact> addContactByContactEmail(String name, String password, String email) {
-        Set<IContact> contacts = Collections.emptySet();
+    public IUser addContactByContactEmail(String name, String password, String email) {
         IUser user = userService.getByNameAndPassword(name, password);
         if (user != null) {
             userService.addContactByEmail(user, email);
-            contacts = user.getContacts();
         }
-        return contacts;
+        return user;
     }
 
     /**
