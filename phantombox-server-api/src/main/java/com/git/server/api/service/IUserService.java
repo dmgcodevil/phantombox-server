@@ -15,6 +15,15 @@ public interface IUserService extends IBaseService<String, IUser> {
 
 
     /**
+     * Gets by name and password.
+     *
+     * @param name     name
+     * @param password password
+     * @return {@link IUser}
+     */
+    IUser getByNameAndPassword(String name, String password);
+
+    /**
      * Login user in the system.
      *
      * @param name      name
@@ -29,8 +38,9 @@ public interface IUserService extends IBaseService<String, IUser> {
      *
      * @param name     name
      * @param password password
+     * @return true - if user was disconnect
      */
-    void logout(String name, String password);
+    boolean logout(String name, String password);
 
 
     /**
@@ -40,7 +50,17 @@ public interface IUserService extends IBaseService<String, IUser> {
      * @param name   name
      * @return result
      */
-    boolean addContactByName(String userId, String name);
+    boolean addContactByUserName(String userId, String name);
+
+
+    /**
+     * Add contact by name.
+     *
+     * @param user {@link IUser} which will be add contact
+     * @param name name
+     * @return result
+     */
+    boolean addContactByUserName(IUser user, String name);
 
     /**
      * Add contact by email.
@@ -50,4 +70,31 @@ public interface IUserService extends IBaseService<String, IUser> {
      * @return result
      */
     boolean addContactByEmail(String userId, String email);
+
+    /**
+     * Add contact by email.
+     *
+     * @param user  {@link IUser}
+     * @param email email
+     * @return result
+     */
+    boolean addContactByEmail(IUser user, String email);
+
+    /**
+     * Remove contact by id.
+     *
+     * @param userId    user id
+     * @param contactId contact id
+     * @return true - if operation complete successful
+     */
+    boolean removeContactById(String userId, String contactId);
+
+    /**
+     * Remove contact by id.
+     *
+     * @param user      {@link IUser}
+     * @param contactId contact id
+     * @return true - if operation complete successful
+     */
+    boolean removeContactById(IUser user, String contactId);
 }

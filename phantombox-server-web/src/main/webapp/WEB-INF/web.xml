@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:com/git/server/web/spring/phantombox-server-web-context.xml
+        </param-value>
+    </context-param>
+
+    <!-- This listener will load other application context file in addition to
+   application-context.xml -->
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>vaadinServlet</servlet-name>
+        <servlet-class>com.git.server.web.util.vaadin.AutowiringApplicationServlet</servlet-class>
+        <init-param>
+            <param-name>application</param-name>
+            <param-value>com.git.server.web.ui.vaadin.MainWindow</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>vaadinServlet</servlet-name>
+        <url-pattern>/myurl/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>vaadinServlet</servlet-name>
+        <url-pattern>/VAADIN/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>

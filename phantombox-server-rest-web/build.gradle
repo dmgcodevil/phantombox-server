@@ -1,0 +1,23 @@
+apply plugin: 'war'
+
+dependencies {
+
+    /* ---------------- phantombox dependencies ---------------- */
+    compile('com.git.phantombox:phantombox-domain-api:1.0.0')
+    compile('com.git.phantombox:phantombox-domain-impl:1.0.0')
+    compile('com.git.phantombox:phantombox-domain-util:1.0.0')
+    compile project(':phantombox-server-api')
+    compile project(':phantombox-server-storage')
+    compile project(':phantombox-server-service')
+    compile project(':phantombox-server-rest-api')
+
+    /* ---------------- spring dependencies ---------------- */
+
+    compile('org.springframework:spring-web:3.1.2.RELEASE')
+    compile('org.springframework:spring-webmvc:3.1.2.RELEASE')
+
+    compile('stax:stax-api:1.0.1')
+    compile('org.codehaus.jackson:jackson-mapper-asl:1.9.9')
+    compile('com.thoughtworks.xstream:xstream:1.4.2')
+}
+            

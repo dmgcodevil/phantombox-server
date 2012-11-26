@@ -8,13 +8,8 @@
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 
-    <import resource="classpath:com/git/server/storage/spring/phantombox-server-storage-mongo-config.xml"/>
-    <import resource="classpath:com/git/server/storage/spring/phantombox-server-storage-context.xml"/>
+    <import resource="classpath:com/git/server/service/spring/phantombox-server-service-context.xml"/>
 
-
-    <context:component-scan base-package="com.git.server.service"/>
-
-    <bean name="abstractBaseService" abstract="true"
-          class="com.git.server.service.AbstractBaseService"/>
+    <context:component-scan base-package="com.git.server.rest.web.service"/>
 
 </beans>

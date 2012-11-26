@@ -11,6 +11,7 @@ import com.git.server.api.repository.IUserRepository;
 import com.git.server.api.service.IConnectionService;
 import com.git.server.api.service.IContactService;
 import com.git.server.api.service.IUserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,19 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
         return saved;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public IUser getByNameAndPassword(String name, String password) {
+        IUser user = null;
+        if (StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(password)) {
+            user = userRepository.findByNameAndPassword(name, password);
+        }
+        return user;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -80,24 +94,35 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
      * {@inheritDoc}
      */
     @Override
-    public void logout(String name, String password) {
-        IUser user = userRepository.findByNameAndPassword(name, password);
+    public boolean logout(String name, String password) {
+        boolean disconnected = false;
+        IUser user = getByNameAndPassword(name, password);
         if (user != null) {
             if (user.getContact() != null) {
                 user.getContact().setOnline(false);
                 contactService.update(user.getContact());
+                disconnected = true;
             }
         }
+        return disconnected;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean addContactByName(String userId, String name) {
+    public boolean addContactByUserName(String userId, String name) {
+        IUser user = getById(userId);
+        return addContactByUserName(user, name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean addContactByUserName(IUser user, String name) {
         boolean added = false;
         IUser newUser = userRepository.findByName(name);
-        IUser user = userRepository.findById(userId);
         if (user != null && newUser != null) {
             user.getContacts().add(newUser.getContact());
             update(user);
@@ -112,9 +137,17 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
      */
     @Override
     public boolean addContactByEmail(String userId, String email) {
+        IUser user = getById(userId);
+        return addContactByEmail(user, email);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean addContactByEmail(IUser user, String email) {
         boolean added = false;
         IUser newUser = userRepository.findByEmail(email);
-        IUser user = userRepository.findById(userId);
         if (user != null && newUser != null) {
             user.getContacts().add(newUser.getContact());
             update(user);
@@ -122,6 +155,32 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
 
         }
         return added;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean removeContactById(String userId, String contactId) {
+        IUser user = getById(userId);
+        return removeContactById(user, contactId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean removeContactById(IUser user, String contactId) {
+        boolean result = false;
+        if (user != null && contactId != null) {
+            IContact contact = contactService.getById(contactId);
+            if (contact.getId() != null) {
+                user.getContacts().remove(contact);
+                update(user);
+                result = true;
+            }
+        }
+        return result;
     }
 
     /**
