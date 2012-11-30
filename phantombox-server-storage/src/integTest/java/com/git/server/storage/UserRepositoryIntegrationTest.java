@@ -11,6 +11,7 @@ import junit.framework.Assert;
 import org.apache.commons.collections.CollectionUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +108,8 @@ public class UserRepositoryIntegrationTest {
     /**
      * Test find by email.
      */
-    @Test
+    @Ignore
+    // TODO remove this method from repository, because exist in IContactRepository
     public void testFindByEmail() {
         IUser repUser = userRepository.findByEmail(user.getContact().getEmail());
         Assert.assertNotNull(repUser);
