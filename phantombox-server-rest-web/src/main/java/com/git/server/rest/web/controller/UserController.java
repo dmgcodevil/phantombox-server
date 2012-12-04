@@ -1,5 +1,6 @@
 package com.git.server.rest.web.controller;
 
+import static com.git.domain.api.Constants.RESULT;
 import com.git.domain.api.IUser;
 import com.git.server.rest.api.IRestUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User controller.
@@ -21,6 +26,7 @@ import org.springframework.web.servlet.View;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
 
     @Autowired
     private IRestUserService restUserService;
@@ -50,10 +56,15 @@ public class UserController {
      *
      * @param name     user name
      * @param password user password
+     * @return map
      */
+    @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/logout")
-    public void logout(@RequestParam String name, @RequestParam String password) {
-        restUserService.logout(name, password);
+    public Map<String, Boolean> logout(@RequestParam String name, @RequestParam String password) {
+        boolean res = restUserService.logout(name, password);
+        Map<String, Boolean> response = new HashMap();
+        response.put(RESULT, res);
+        return response;
     }
 
 
@@ -96,12 +107,17 @@ public class UserController {
      * @param name      name
      * @param password  password
      * @param contactId contact id
+     * @return map
      */
+    @ResponseBody
     @RequestMapping(method = RequestMethod.GET, value = "/removeContact")
-    public void removeContactById(@RequestParam String name,
-                                  @RequestParam String password,
-                                  @RequestParam String contactId) {
-        restUserService.removeContactById(name, password, contactId);
+    public Map<String, Boolean> removeContactById(@RequestParam String name,
+                                                  @RequestParam String password,
+                                                  @RequestParam String contactId) {
+        boolean res = restUserService.removeContactById(name, password, contactId);
+        Map<String, Boolean> response = new HashMap();
+        response.put(RESULT, res);
+        return response;
     }
 
 }
