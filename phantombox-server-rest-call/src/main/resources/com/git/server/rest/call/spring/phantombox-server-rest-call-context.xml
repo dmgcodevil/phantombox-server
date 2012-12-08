@@ -19,6 +19,11 @@
         <property name="service" value="${rest.service}"/>
     </bean>
 
+    <bean id="restContactServiceCaller" class="com.git.server.rest.call.RestContactServiceCaller">
+        <property name="server" value="${rest.server}"/>
+        <property name="service" value="${rest.service}"/>
+    </bean>
+
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">
             <list>

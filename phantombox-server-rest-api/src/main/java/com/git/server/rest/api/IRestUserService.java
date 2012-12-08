@@ -12,7 +12,6 @@ import com.git.domain.api.IUser;
  */
 public interface IRestUserService {
 
-
     /**
      * Login.
      *
@@ -34,14 +33,14 @@ public interface IRestUserService {
 
 
     /**
-     * Add contact by user name.
+     * Add contact by  name.
      *
-     * @param name     name
-     * @param password password
-     * @param userName name  of user which need to add
+     * @param name        name
+     * @param password    password
+     * @param contactName name  of contact which need to add
      * @return {@link IUser}
      */
-    IUser addContactByUserName(String name, String password, String userName);
+    IUser addContactByName(String name, String password, String contactName);
 
 
     /**

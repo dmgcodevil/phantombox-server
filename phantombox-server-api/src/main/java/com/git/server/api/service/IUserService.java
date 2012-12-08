@@ -50,7 +50,7 @@ public interface IUserService extends IBaseService<String, IUser> {
      * @param name   name
      * @return result
      */
-    boolean addContactByUserName(String userId, String name);
+    boolean addContactByName(String userId, String name);
 
 
     /**
@@ -60,7 +60,7 @@ public interface IUserService extends IBaseService<String, IUser> {
      * @param name name
      * @return result
      */
-    boolean addContactByUserName(IUser user, String name);
+    boolean addContactByName(IUser user, String name);
 
     /**
      * Add contact by email.

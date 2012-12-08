@@ -43,6 +43,12 @@ public class ContactRepository extends AbstractBaseRepository<String, IContact>
     }
 
     @Override
+    public IContact findByName(String name) {
+        return getMongoTemplate().findOne(query(where("name")
+            .is(name)), getDomainClass());
+    }
+
+    @Override
     public IContact findByEmail(String email) {
         return getMongoTemplate().findOne(query(where("email")
             .is(email)), getDomainClass());

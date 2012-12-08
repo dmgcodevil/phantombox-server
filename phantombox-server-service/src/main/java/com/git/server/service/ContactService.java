@@ -65,6 +65,16 @@ public class ContactService extends AbstractBaseService<String, IContact> implem
     }
 
 
+    @Override
+    public IContact getByName(String name) {
+        IContact contact = null;
+        if (name != null) {
+            contact = contactRepository.findByName(name);
+        }
+        return contact;
+
+    }
+
     /**
      * {@inheritDoc}
      */

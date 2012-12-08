@@ -111,20 +111,20 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
      * {@inheritDoc}
      */
     @Override
-    public boolean addContactByUserName(String userId, String name) {
+    public boolean addContactByName(String userId, String name) {
         IUser user = getById(userId);
-        return addContactByUserName(user, name);
+        return addContactByName(user, name);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean addContactByUserName(IUser user, String name) {
+    public boolean addContactByName(IUser user, String name) {
         boolean added = false;
-        IUser newUser = userRepository.findByName(name);
-        if (user != null && newUser != null) {
-            user.getContacts().add(newUser.getContact());
+        IContact contact = contactService.getByName(name);
+        if (user != null) {
+            user.getContacts().add(contact);
             update(user);
             added = true;
 

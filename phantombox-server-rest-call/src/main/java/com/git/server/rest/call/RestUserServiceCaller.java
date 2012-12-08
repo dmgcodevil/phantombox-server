@@ -117,12 +117,12 @@ public class RestUserServiceCaller implements IRestUserService {
      * {@inheritDoc}
      */
     @Override
-    public IUser addContactByUserName(String name, String password, String userName) {
+    public IUser addContactByName(String name, String password, String contactName) {
         StringBuilder urlBuilder = buildUrlPrefix();
         urlBuilder.append(USER_REST_CALL).append(USER_ADD_CONTACT_BY_NAME_REST_CALL);
-        addParameters(urlBuilder, "name", "password", "userName");
+        addParameters(urlBuilder, "name", "password", "contactName");
         IUserJsonWrapper userWrapper = restTemplate.getForObject(urlBuilder.toString(),
-            UserJsonWrapper.class, name, password, userName);
+            UserJsonWrapper.class, name, password, contactName);
         return userWrapper.getUser();
     }
 

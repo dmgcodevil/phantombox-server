@@ -71,16 +71,16 @@ public class UserController {
     /**
      * Add contact by user name.
      *
-     * @param name     name
-     * @param password password
-     * @param userName name  of user which need to add
+     * @param name        name
+     * @param password    password
+     * @param contactName name  of contact which need to add
      * @return {@link ModelAndView} user in json format
      */
     @RequestMapping(method = RequestMethod.GET, value = "/addContactByName")
     public ModelAndView addContactByUserName(@RequestParam String name,
                                              @RequestParam String password,
-                                             @RequestParam String userName) {
-        IUser user = restUserService.addContactByUserName(name, password, userName);
+                                             @RequestParam String contactName) {
+        IUser user = restUserService.addContactByName(name, password, contactName);
         return new ModelAndView(jsonView, USER_VIEW, user);
     }
 

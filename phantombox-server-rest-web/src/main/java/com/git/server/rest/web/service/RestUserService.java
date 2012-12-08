@@ -40,10 +40,10 @@ public class RestUserService implements IRestUserService {
      * {@inheritDoc}
      */
     @Override
-    public IUser addContactByUserName(String name, String password, String userName) {
+    public IUser addContactByName(String name, String password, String contactName) {
         IUser user = userService.getByNameAndPassword(name, password);
         if (user != null) {
-            userService.addContactByUserName(user, userName);
+            userService.addContactByName(user, contactName);
         }
         return user;
     }
