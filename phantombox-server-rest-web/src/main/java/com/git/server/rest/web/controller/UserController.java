@@ -3,6 +3,7 @@ package com.git.server.rest.web.controller;
 import static com.git.domain.api.Constants.RESULT;
 import com.git.domain.api.IUser;
 import com.git.server.rest.api.IRestUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +48,12 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public ModelAndView login(@RequestParam String name, @RequestParam String password,
                               @RequestParam(required = false) String ipAddress) {
-        IUser user = restUserService.login(name, password, ipAddress);
+        IUser user = null;
+        if (StringUtils.isNotEmpty(ipAddress)) {
+            user = restUserService.login(name, password, ipAddress);
+        } else {
+            user = restUserService.login(name, password);
+        }
         return new ModelAndView(jsonView, USER_VIEW, user);
     }
 

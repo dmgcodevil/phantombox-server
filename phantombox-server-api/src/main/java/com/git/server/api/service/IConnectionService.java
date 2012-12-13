@@ -18,4 +18,11 @@ public interface IConnectionService extends IBaseService<String, IConnection> {
      * @return {@link IConnection}
      */
     IConnection createDefaultConnection();
+
+    /**
+     * Create connection.
+     *
+     * @return {@link IConnection}
+     */
+    IConnection createConnection();
 }

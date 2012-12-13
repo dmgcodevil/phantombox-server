@@ -34,6 +34,15 @@ public interface IUserService extends IBaseService<String, IUser> {
     IUser login(String name, String password, String ipAddress);
 
     /**
+     * Login user in the system.
+     *
+     * @param name     name
+     * @param password password
+     * @return {@link IUser}
+     */
+    IUser login(String name, String password);
+
+    /**
      * logout user.
      *
      * @param name     name

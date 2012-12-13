@@ -96,6 +96,16 @@ public class RestUserServiceCaller implements IRestUserService {
         return userWrapper.getUser();
     }
 
+    @Override
+    public IUser login(String name, String password) {
+        StringBuilder urlBuilder = buildUrlPrefix();
+        urlBuilder.append(USER_REST_CALL).append(USER_LOGIN_REST_CALL);
+        addParameters(urlBuilder, "name", "password");
+        IUserJsonWrapper userWrapper = restTemplate.getForObject(urlBuilder.toString(),
+            UserJsonWrapper.class, name, password);
+        return userWrapper.getUser();
+    }
+
     /**
      * {@inheritDoc}
      */

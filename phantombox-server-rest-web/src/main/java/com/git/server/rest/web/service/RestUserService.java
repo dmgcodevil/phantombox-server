@@ -28,6 +28,11 @@ public class RestUserService implements IRestUserService {
         return userService.login(name, password, ipAddress);
     }
 
+    @Override
+    public IUser login(String name, String password) {
+        return userService.login(name, password);
+    }
+
     /**
      * {@inheritDoc}
      */

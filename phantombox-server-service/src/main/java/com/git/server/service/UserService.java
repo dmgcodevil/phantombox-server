@@ -46,7 +46,8 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
     public boolean save(IUser user) {
         boolean saved = false;
         if (user != null && user.getContact() != null) {
-            user.getContact().setConnection(connectionService.createDefaultConnection());
+            // TODO refine it
+            user.getContact().setConnection(connectionService.createConnection());
             saved = super.save(user);
         }
         return saved;
@@ -76,10 +77,27 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
                 user.getContact().setOnline(true);
                 IConnection connection = user.getContact().getConnection();
                 if (connection == null) {
-                    connection = connectionService.createDefaultConnection();
+                    connection = connectionService.createConnection();
                 }
                 connection.setIpAddress(ipAddress);
                 connection.setConnected(new Date());
+                user.getContact().setConnection(connection);
+                contactService.update(user.getContact());
+            }
+        } else {
+            user = createInstance();
+            user.getContact().setOnline(false);
+        }
+        return user;
+    }
+
+    @Override
+    public IUser login(String name, String password) {
+        IUser user = userRepository.findByNameAndPassword(name, password);
+        if (user != null) {
+            if (user.getContact() != null && user.getContact().getId() != null) {
+                user.getContact().setOnline(true);
+                IConnection connection = connectionService.createConnection();
                 user.getContact().setConnection(connection);
                 contactService.update(user.getContact());
             }
@@ -98,8 +116,10 @@ public class UserService extends AbstractBaseService<String, IUser> implements I
         boolean disconnected = false;
         IUser user = getByNameAndPassword(name, password);
         if (user != null) {
-            if (user.getContact() != null) {
+            if (user.getContact() != null && user.getContact().isOnline()) {
                 user.getContact().setOnline(false);
+                connectionService.delete(user.getContact().getConnection().getId());
+                user.getContact().setConnection(null);
                 contactService.update(user.getContact());
                 disconnected = true;
             }
