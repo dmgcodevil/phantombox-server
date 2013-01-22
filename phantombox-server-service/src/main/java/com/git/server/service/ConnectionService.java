@@ -9,7 +9,6 @@ import com.git.server.api.repository.IBaseRepository;
 import com.git.server.api.repository.IConnectionRepository;
 import com.git.server.api.service.IConnectionService;
 import com.git.server.api.service.IPropertyService;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
